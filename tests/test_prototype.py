@@ -16,7 +16,7 @@ class TestCommentFixer(object):
     COMMENTS_FILE = "./test_scripts/comments.py"
 
     # test instance
-    fixer = CommentFixer(COMMENTS_FILE)
+    fixer = CommentFixer()
 
     def test_fix(self):
         """Testing basic attributes.
