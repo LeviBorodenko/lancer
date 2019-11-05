@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from lancer.prototype import ProtoCommentFixer as CommentFixer
+from lancer.fixers.comments import CommentFixer
 from pathlib import Path
 
 __author__ = "Levi Borodenko"
@@ -10,19 +10,47 @@ __license__ = "mit"
 
 
 class TestCommentFixer(object):
-    """docstring for TestCommentFixer"""
+    """Testing the CommentFixer class."""
 
-    # test file
-    COMMENTS_FILE = "./test_scripts/comments.py"
+    # test file content
+    TEST_FILE_CONTENT = """
+        from pathlib import Path
+
+
+        def some_function(some_arg: Path= "lol"):
+
+            a = "b"
+
+            # comment 1
+            return a
+
+        # comment 2
+
+
+        if __name__ == '__main__':
+
+        # comment 3
+        some_function()
+    """
 
     # test instance
     fixer = CommentFixer()
 
-    def test_fix(self):
+    def test_init(self):
+
+        assert self.fixer.__name__ == "CommentFixer"
+
+    def test_fix(self, tmp_path):
         """Testing basic attributes.
         """
+        # create temporary folder and script file
+        path = tmp_path / "folder"
+        path.mkdir()
 
-        self.fixer.fix(self.COMMENTS_FILE)
+        file = path / "comments.py"
+        file.write_text(self.TEST_FILE_CONTENT)
+
+        self.fixer.fix(file)
 
         assert isinstance(self.fixer.FILE_PATH, Path)
         assert self.fixer.FILE_PATH.name == "comments.py"

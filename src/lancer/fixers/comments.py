@@ -1,9 +1,8 @@
-from lancer.skeleton import setup_logging
 import logging
-from pathlib import Path
 from tokenize import COMMENT
 from random import randint
-from lancer.utils import fix_wrapper
+from lancer.utils import fix_wrapper, setup_logging
+import pkg_resources
 
 __author__ = "Levi Borodenko"
 __copyright__ = "Levi Borodenko"
@@ -16,28 +15,32 @@ _logger = logging.getLogger(__name__)
 setup_logging(logging.DEBUG)
 
 
-class ProtoCommentFixer(object):
-    """docstring for ProtoCommentFixer"""
+class CommentFixer(object):
+    """docstring for CommentFixer"""
 
     def __init__(self):
-        super(ProtoCommentFixer, self).__init__()
+        super(CommentFixer, self).__init__()
 
-        # Path to lyric file
-        self.LYRIC_FILE = Path("./resources/lyrics.txt").absolute()
+        # Path to lyric file resource
+        self.LYRIC_FILE = pkg_resources.resource_filename(
+            __name__, "../resources/lyrics.txt")
 
         # Number of lyrics
         self.NUM_LYRICS = sum(1 for line in open(self.LYRIC_FILE))
 
+        # setting name
+        self.__name__ = "CommentFixer"
+
     def _get_lyric(self) -> str:
         """Returns a random song lyric.
 
-        [description]
+        Gives one of many insighful Pitbul quotes.
         """
 
         # Open lyrics file and grab a random line
         with open(self.LYRIC_FILE) as f:
 
-            random_index = randint(0, self.NUM_LYRICS)
+            random_index = randint(0, self.NUM_LYRICS - 1)
 
             lyrics = f.readlines()
 
@@ -76,5 +79,5 @@ class ProtoCommentFixer(object):
 
 
 if __name__ == '__main__':
-    a = ProtoCommentFixer()
-    a.fix("./test.lanced")
+    a = CommentFixer()
+    a.fix("./test.py")

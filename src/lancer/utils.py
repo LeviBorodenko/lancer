@@ -2,6 +2,30 @@ from io import BytesIO
 from functools import wraps
 from pathlib import Path
 from tokenize import tokenize, untokenize
+import sys
+import logging
+
+
+__author__ = "Levi Borodenko"
+__copyright__ = "Levi Borodenko"
+__license__ = "mit"
+
+_logger = logging.getLogger(__name__)
+
+
+def setup_logging(loglevel):
+    """Setup basic logging
+
+    Args:
+      loglevel (int): minimum loglevel for emitting messages
+    """
+    logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
+    logging.basicConfig(level=loglevel, stream=sys.stdout,
+                        format=logformat, datefmt="%Y-%m-%d %H:%M:%S")
+
+
+# setting up logger format and default log level
+setup_logging(logging.DEBUG)
 
 
 def fix_wrapper(fix_method):
@@ -21,6 +45,8 @@ def fix_wrapper(fix_method):
         path = Path(in_file)
         self.FILE_PATH = Path(in_file)
 
+        _logger.info(f"Applyig {self.__name__} to {path}")
+
         # Saving file name
         self.FILE_NAME = Path(in_file).stem
 
@@ -30,9 +56,6 @@ def fix_wrapper(fix_method):
 
         # (temporary) output file
         out_file = (path.parent / path.name).with_suffix(".lanced")
-
-        # creating it if it does not exist
-        out_file.touch()
 
         with open(in_file, "r") as file:
 
@@ -52,7 +75,9 @@ def fix_wrapper(fix_method):
         result = untokenize(result_tokens).decode("utf-8")
 
         # print resulting script to out_file
-        with open(out_file, "w") as out_file:
-            print(result, file=out_file, end="")
+        with open(out_file, "w+") as file:
+            print(result, file=file, end="")
+
+        _logger.debug(f"In: {path} ~ Fix: {self.__name__} ~ Out: {out_file}")
 
     return wrapper
