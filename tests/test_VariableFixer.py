@@ -51,3 +51,15 @@ class TestCommentFixer(object):
 
         # check if same name generates same output
         assert name == self.fixer._get_new_name("TEST")
+
+    def test_fix(self, tmp_path):
+        """Testing it can fix without breaking.
+        """
+        # create temporary folder and script file
+        path = tmp_path / "folder"
+        path.mkdir()
+
+        file = path / "variables.py"
+        file.write_text(self.TEST_FILE_CONTENT)
+
+        self.fixer.fix(file)

@@ -5,6 +5,7 @@ from tokenize import tokenize, untokenize
 import sys
 import logging
 from collections import deque
+from keyword import iskeyword
 
 
 __author__ = "Levi Borodenko"
@@ -75,7 +76,7 @@ def fix_wrapper(fix_method):
         result_tokens = fix_method(self, tokens)
 
         # converting back to string
-        result = untokenize(result_tokens)
+        result = untokenize(result_tokens).decode('utf-8')
 
         # print resulting script to out_file
         with open(out_file, "w+") as file:
@@ -107,3 +108,34 @@ def window(seq: iter, n: int=2):
     for e in it:
         append(e)
         yield list(win)
+
+
+def isbuildin(name: str) -> bool:
+    """[summary]
+    Checks if name is a keyword or build-in function
+    [description]
+
+    Arguments:
+        name {str} -- name to be checked
+
+    Returns:
+        bool -- true if it is a build-in
+    """
+
+    blacklist = ["abs", "delattr", "hash", "memoryview", "set", "all", "dict",
+                 "help", "min", "setattr", "any", "dir", "hex", "next",
+                 "slice", "ascii", "divmod", "id", "object", "sorted",
+                 "bin", "enumerate", "input", "oct", "staticmethod",
+                 "bool", "eval", "int", "open", "str", "breakpoint", "exec",
+                 "isinstance", "ord", "sum", "bytearray", "filter",
+                 "issubclass", "pow", "super", "bytes", "float", "iter",
+                 "print", "tuple", "callable", "format", "len",
+                 "property", "type", "chr", "frozenset", "list",
+                 "range", "vars", "classmethod", "getattr", "locals",
+                 "repr", "zip", "compile", "globals", "map", "reversed",
+                 "__import__", "complex", "hasattr", "max", "round", "self"]
+
+    if name in blacklist or iskeyword(name):
+        return True
+    else:
+        return False

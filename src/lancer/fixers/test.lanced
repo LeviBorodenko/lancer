@@ -1,0 +1,35 @@
+from random import randint as lfsefsefs 
+
+OO00ΟO0OO0ΟOΟ0O0 ="yep"
+
+print (OO00ΟO0OO0ΟOΟ0O0 ,2 *OO00ΟO0OO0ΟOΟ0O0 )
+
+
+def ΙΙllΙIlIIΙIlllΙ (arg ,*args ,**kwargs ):
+
+    OΟOOΟ0Ο0OOOΟ0ΟOΟ =23 
+
+    lIΙlΙΙIlIIIIIIl =arg 
+
+    return OΟOOΟ0Ο0OOOΟ0ΟOΟ 
+
+
+class lΙΙlΙllΙIlΙlΙIl (object ):
+    """docstring for ClassName"""
+
+    def __init__ (self ,arg ):
+        super (lΙΙlΙllΙIlΙlΙIl ,self ).__init__ ()
+        self .arg =arg 
+
+    def O0OO0000O00OOΟΟ0 (self ,test ):
+        print (test )
+        return test 
+
+
+aaαaaαααaααaaaα =lΙΙlΙllΙIlΙlΙIl ("sd")
+
+aaαaaαααaααaaaα .O0OO0000O00OOΟΟ0 (test ="lala")
+
+IllΙIIIIlIΙIIΙΙ ,rename2 =(1 ,2 )
+
+print (IllΙIIIIlIΙIIΙΙ )

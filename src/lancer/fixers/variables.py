@@ -1,7 +1,9 @@
 import logging
-# from tokenize import COMMENT
+from tokenize import NAME, NL, DEDENT, INDENT
+from itertools import tee
 import random
-from lancer.utils import fix_wrapper, setup_logging, window
+from lancer.utils import fix_wrapper, setup_logging, window, isbuildin
+
 # import pkg_resources
 
 __author__ = "Levi Borodenko"
@@ -73,16 +75,93 @@ class VariableFixer(object):
 
     @fix_wrapper
     def fix(self, tokens):
-        for win in window(tokens, 3):
-            a, b, c = win
 
-            print(a.type)
+        tokens, tokens_copy = tee(tokens)
 
-        return tokens
+        def scan(elements):
+            """[summary]
+            Iterates over tokens, looking for variable names to
+            substitute
+
+            [description]
+            We slide a 3-element window and try to catch:
+
+            def NAME(...)
+
+            NAME = ...
+
+            class NAME
+
+            Ignore:
+
+            if import in line
+
+            """
+
+            # iterate over 3-windows
+            for win in window(elements, 3):
+
+                # get tokens
+                first, middle, last = win
+
+                # check if definition
+                if first.string in ["def", "class"] and middle.type == NAME:
+
+                    # ignore if function name contains "__"
+                    # like __init__ etc
+                    if "__" not in middle.string:
+
+                        # write into dictionary
+                        self._get_new_name(middle.string)
+
+                # check if isolated variable
+                if first.type in [NL, INDENT, DEDENT] and middle.type == NAME:
+
+                    # check if middle is not a build-in and if not isolated
+                    # function call
+                    if not isbuildin(middle.string) and last.string != "(":
+
+                        # write into dictionary
+                        self._get_new_name(middle.string)
+
+        def substitute(elements):
+            """[summary]
+            Iterate over all NAMEs and substitute from the dictionary
+
+            [description]
+            """
+
+            result = []
+
+            # iterating over tokens
+            for token_type, token_val, _, _, _, in elements:
+
+                # if token is a Name, substitute from dict.
+                if token_type == NAME:
+
+                    try:
+                        new_name = self.dict[token_val]
+
+                        result.append(
+                            (NAME, new_name)
+                        )
+
+                    except KeyError:
+                        result.append(
+                            (NAME, token_val)
+                        )
+
+                else:
+                    result.append((token_type, token_val))
+            return result
+
+        scan(tokens)
+        result = substitute(tokens_copy)
+        return result
 
 
 if __name__ == '__main__':
 
     fixer = VariableFixer()
 
-    fixer.fix("test.py")
+    fixer.fix("./test.py")
