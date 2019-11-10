@@ -1,5 +1,3 @@
-
-
 def function(heh):  # this is a test comment
     """[summary]
 
@@ -13,4 +11,8 @@ def function(heh):  # this is a test comment
     # return
     return this
 
+
 # that's it folks.
+a = 2
+
+print(a)

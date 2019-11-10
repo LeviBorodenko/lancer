@@ -4,6 +4,7 @@ from pathlib import Path
 from tokenize import tokenize, untokenize
 import sys
 import logging
+from collections import deque
 
 
 __author__ = "Levi Borodenko"
@@ -34,6 +35,8 @@ def fix_wrapper(fix_method):
 
     [description]
 
+    TODO:
+        - Add attribute to self pointing to output
     Arguments:
         fix_funct {method} -- the method that takes tokens and returns
         fixed tokens.
@@ -50,7 +53,7 @@ def fix_wrapper(fix_method):
         # Saving file name
         self.FILE_NAME = Path(in_file).stem
 
-        # check if input file is a python file or a lanced python file
+        # check if input file is a python file or lanced python file
         if self.FILE_PATH.suffix not in [".py", ".lanced"]:
             raise ValueError("File needs to be .py or .lanced")
 
@@ -72,7 +75,7 @@ def fix_wrapper(fix_method):
         result_tokens = fix_method(self, tokens)
 
         # converting back to string
-        result = untokenize(result_tokens).decode("utf-8")
+        result = untokenize(result_tokens)
 
         # print resulting script to out_file
         with open(out_file, "w+") as file:
@@ -81,3 +84,26 @@ def fix_wrapper(fix_method):
         _logger.debug(f"In: {path} ~ Fix: {self.__name__} ~ Out: {out_file}")
 
     return wrapper
+
+
+def window(seq: iter, n: int=2):
+    """[summary]
+
+    [description]
+
+    Arguments:
+        seq {iter} --  Sequence to iterate over
+
+    Keyword Arguments:
+        n {int} -- Size of sliding window (default: {2})
+
+    Yields:
+        [type] -- [description]
+    """
+    it = iter(seq)
+    win = deque((next(it, None) for _ in range(n)), maxlen=n)
+    yield list(win)
+    append = win.append
+    for e in it:
+        append(e)
+        yield list(win)
