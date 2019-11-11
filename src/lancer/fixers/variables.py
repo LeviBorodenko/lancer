@@ -2,7 +2,7 @@ import logging
 from tokenize import NAME, NL, DEDENT, INDENT
 from itertools import tee
 import random
-from lancer.utils import fix_wrapper, setup_logging, window, isbuildin
+from lancer.utils import fix_wrapper, window, isbuildin
 
 # import pkg_resources
 
@@ -13,12 +13,21 @@ __license__ = "mit"
 # setting up logger instance
 _logger = logging.getLogger(__name__)
 
-# setting up logger format and default log level
-setup_logging(logging.DEBUG)
-
 
 class VariableFixer(object):
-    """docstring for VariableFixer"""
+    """[summary]
+    Changes all your good variable names into horrible ones.
+    
+    [description]
+    Iterates over file spotting all variable, function and class names,
+    substituting them with its own BAD ones.
+
+    Methods:
+        fix(file) - takes file and returns the fixed "file.lanced"
+
+    Todo:
+        Fix annotation compatability
+    """
 
     def __init__(self):
         super(VariableFixer, self).__init__()
@@ -28,11 +37,11 @@ class VariableFixer(object):
 
         # dictionary containing the patterns to generate the new names
         self.PATTERNS = {1: {"initial": "O", "chars": ["0", "O", "Ο"]},
-                         2: {"initial": None, "chars": ["I", "l", "Ι"]},
+                         2: {"initial": "I", "chars": ["I", "l", "Ι", "1"]},
                          3: {"initial": None, "chars": ["α", "a"]}
                          }
 
-        # initilising dict that will translate the actual variable names
+        # initializing dict that will translate the actual variable names
         # to our generated onces.
         self.dict = {}
 
@@ -73,95 +82,136 @@ class VariableFixer(object):
 
             return self.dict[input_name]
 
+    def _spot_definitions(self, token_triple: iter) -> None:
+        """[summary]
+        Looks for function and class names in a token triple
+
+        [description]
+        Takes a consecutive token triple and checks if the middle one
+        if is:
+
+        def NAME(...):
+
+        class NAME(...):
+
+        Arguments:
+            token_triple {iter} -- consecutive token triple
+        """
+        # get tokens
+        first, middle, last = token_triple
+
+        # check if definition
+        if first.string in ["def", "class"] and middle.type == NAME:
+
+            # ignore if function name contains "__"
+            # like __init__ etc
+            if "__" not in middle.string:
+
+                # write into dictionary
+                self._get_new_name(middle.string)
+
+    def _spot_isolated_names(self, token_triple: iter) -> None:
+        """[summary]
+        Looks for isolated variable definitions
+
+        [description]
+        Takes a consecutive token triple and checks if the middle one
+        if is:
+
+        NAME = ...
+
+
+        Arguments:
+            token_triple {iter} -- consecutive token triple
+        """
+        # get tokens
+        first, middle, last = token_triple
+
+        # check if "first" empty
+        if first.type in [NL, INDENT, DEDENT] and middle.type == NAME:
+
+            # check if middle is not a build-in name.
+            # For cases like:
+            #   return ...all
+
+            # also we want to avoid selecting names of isolated function calls.
+            # Things like:
+            #   function(...)
+            if not isbuildin(middle.string) and last.string != "(":
+
+                # write into dictionary
+                self._get_new_name(middle.string)
+
+    def _spot_argument_names(self, token_triple: iter) -> None:
+        """[summary]
+        Looks for argument names.
+
+        [description]
+        Takes a consecutive token triple and checks if the middle one
+        if is:
+
+        def function(NAME1, NAME2 = ..., *NAME3, **NAME4):
+
+        Arguments:
+            token_triple {iter} -- consecutive token triple
+        """
+
+        # get tokens
+        first, middle, last = token_triple
+
+        # check if we are defining something and if yes, make sure
+        # the middle is followed by either a comma, = or closing bracket
+        if "def" in first.line and last.string in ["=", ",", ")"]:
+
+            # also make sure middle is an actual NAME and not "self".
+            if middle.type == NAME and middle.string != "self":
+
+                # write into dictionary
+                self._get_new_name(middle.string)
+
+    def _substitute(self, tokens):
+
+        result = []
+
+        # iterating over tokens
+        for token_type, token_val, _, _, _, in tokens:
+
+            # if token is a Name, substitute from dict.
+            if token_type == NAME:
+
+                try:
+
+                    # try to get name
+                    new_name = self.dict[token_val]
+                    result.append((NAME, new_name))
+
+                except KeyError:
+
+                    # if name not collected
+                    # leave it as is.
+                    result.append((NAME, token_val))
+
+            # if not a name, append as is.
+            else:
+                result.append((token_type, token_val))
+
+        return result
+
     @fix_wrapper
     def fix(self, tokens):
 
         tokens, tokens_copy = tee(tokens)
 
-        def scan(elements):
-            """[summary]
-            Iterates over tokens, looking for variable names to
-            substitute
+        # iterate over consecutive token triples
+        for win in window(tokens, 3):
 
-            [description]
-            We slide a 3-element window and try to catch:
+            # collect names in each
+            self._spot_definitions(win)
+            self._spot_argument_names(win)
+            self._spot_isolated_names(win)
 
-            def NAME(...)
+        # after spotting all, substitute all names according
+        # to our collected dictionary
+        result = self._substitute(tokens_copy)
 
-            NAME = ...
-
-            class NAME
-
-            Ignore:
-
-            if import in line
-
-            """
-
-            # iterate over 3-windows
-            for win in window(elements, 3):
-
-                # get tokens
-                first, middle, last = win
-
-                # check if definition
-                if first.string in ["def", "class"] and middle.type == NAME:
-
-                    # ignore if function name contains "__"
-                    # like __init__ etc
-                    if "__" not in middle.string:
-
-                        # write into dictionary
-                        self._get_new_name(middle.string)
-
-                # check if isolated variable
-                if first.type in [NL, INDENT, DEDENT] and middle.type == NAME:
-
-                    # check if middle is not a build-in and if not isolated
-                    # function call
-                    if not isbuildin(middle.string) and last.string != "(":
-
-                        # write into dictionary
-                        self._get_new_name(middle.string)
-
-        def substitute(elements):
-            """[summary]
-            Iterate over all NAMEs and substitute from the dictionary
-
-            [description]
-            """
-
-            result = []
-
-            # iterating over tokens
-            for token_type, token_val, _, _, _, in elements:
-
-                # if token is a Name, substitute from dict.
-                if token_type == NAME:
-
-                    try:
-                        new_name = self.dict[token_val]
-
-                        result.append(
-                            (NAME, new_name)
-                        )
-
-                    except KeyError:
-                        result.append(
-                            (NAME, token_val)
-                        )
-
-                else:
-                    result.append((token_type, token_val))
-            return result
-
-        scan(tokens)
-        result = substitute(tokens_copy)
         return result
-
-
-if __name__ == '__main__':
-
-    fixer = VariableFixer()
-
-    fixer.fix("./test.py")

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pytest
 from lancer.fixers.variables import VariableFixer
-from pathlib import Path
 
 __author__ = "Levi Borodenko"
 __copyright__ = "Levi Borodenko"

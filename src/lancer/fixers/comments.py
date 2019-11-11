@@ -1,7 +1,7 @@
 import logging
 from tokenize import COMMENT
 from random import randint
-from lancer.utils import fix_wrapper, setup_logging
+from lancer.utils import fix_wrapper
 import pkg_resources
 
 __author__ = "Levi Borodenko"
@@ -11,12 +11,18 @@ __license__ = "mit"
 # setting up logger instance
 _logger = logging.getLogger(__name__)
 
-# setting up logger format and default log level
-setup_logging(logging.DEBUG)
-
 
 class CommentFixer(object):
-    """docstring for CommentFixer"""
+    """[summary]
+    Turns all comments in a file into Pitbull song lyrics.
+
+    [description]
+    Iterates over all tokens, substituting the "COMMENT"
+    ones with its own.
+
+    Methods:
+        fix(file) - takes file and returns the fixed "file.lanced"
+    """
 
     def __init__(self):
         super(CommentFixer, self).__init__()
@@ -34,7 +40,7 @@ class CommentFixer(object):
     def _get_lyric(self) -> str:
         """Returns a random song lyric.
 
-        Gives one of many insighful Pitbul quotes.
+        Gives one of many insightful Pitbull quotes.
         """
 
         # Open lyrics file and grab a random line
@@ -76,8 +82,3 @@ class CommentFixer(object):
             else:
                 result.append((token_type, token_val))
         return result
-
-
-if __name__ == '__main__':
-    a = CommentFixer()
-    a.fix("./test.py")

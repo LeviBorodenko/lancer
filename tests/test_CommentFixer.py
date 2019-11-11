@@ -52,6 +52,8 @@ class TestCommentFixer(object):
 
         self.fixer.fix(file)
 
+        assert self.fixer.__output__ == path / "comments.lanced"
+
         assert isinstance(self.fixer.FILE_PATH, Path)
         assert self.fixer.FILE_PATH.name == "comments.py"
 

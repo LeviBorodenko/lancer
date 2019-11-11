@@ -6,6 +6,7 @@ import sys
 import logging
 from collections import deque
 from keyword import iskeyword
+from shutil import copy2 as copy
 
 
 __author__ = "Levi Borodenko"
@@ -27,7 +28,7 @@ def setup_logging(loglevel):
 
 
 # setting up logger format and default log level
-setup_logging(logging.DEBUG)
+setup_logging(logging.INFO)
 
 
 def fix_wrapper(fix_method):
@@ -48,8 +49,6 @@ def fix_wrapper(fix_method):
         # File to be fixed
         path = Path(in_file)
         self.FILE_PATH = Path(in_file)
-
-        _logger.info(f"Applyig {self.__name__} to {path}")
 
         # Saving file name
         self.FILE_NAME = Path(in_file).stem
@@ -82,7 +81,8 @@ def fix_wrapper(fix_method):
         with open(out_file, "w+") as file:
             print(result, file=file, end="")
 
-        _logger.debug(f"In: {path} ~ Fix: {self.__name__} ~ Out: {out_file}")
+        # add pointer to outfile to self.
+        self.__output__ = out_file
 
     return wrapper
 
@@ -139,3 +139,24 @@ def isbuildin(name: str) -> bool:
         return True
     else:
         return False
+
+def copy_and_delete(in_file:Path, out_file:Path):
+    """[summary]
+    Copies the contents of in_file into out_file
+    then deletes in_file if it is different from out_file.
+    
+    Arguments:
+        in_file {Path} -- File to be copied from and then deleted
+        out_file {Path} -- File to create and copy in_file into.
+    """
+
+    # turn to Path instances if not already.
+    in_file, out_file = Path(in_file), Path(out_file)
+
+    # copy in_file into out_file
+    copy(in_file, out_file)
+
+    # delete in_file if it is not the same as outfile
+    if in_file != out_file:
+        in_file.unlink()
+        _logger.debug(f"Overwriting {in_file} with {out_file}. Good luck.")

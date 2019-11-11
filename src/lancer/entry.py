@@ -18,6 +18,11 @@ Note: This skeleton file can be safely removed if not needed!
 import argparse
 import sys
 import logging
+from pathlib import Path
+from lancer.utils import copy_and_delete
+
+from lancer.fixers.comments import CommentFixer
+from lancer.fixers.variables import VariableFixer
 
 from lancer import __version__
 
@@ -26,22 +31,6 @@ __copyright__ = "Levi Borodenko"
 __license__ = "mit"
 
 _logger = logging.getLogger(__name__)
-
-
-def fib(n):
-    """Fibonacci example function
-
-    Args:
-      n (int): integer
-
-    Returns:
-      int: n-th Fibonacci number
-    """
-    assert n > 0
-    a, b = 1, 1
-    for i in range(n - 1):
-        a, b = b, a + b
-    return a
 
 
 def parse_args(args):
@@ -54,30 +43,26 @@ def parse_args(args):
       :obj:`argparse.Namespace`: command line parameters namespace
     """
     parser = argparse.ArgumentParser(
-        description="Just a Fibonacci demonstration")
+        description="Ever heard of Black? This is the opposite.")
     parser.add_argument(
         "--version",
         action="version",
         version="lancer {ver}".format(ver=__version__))
     parser.add_argument(
-        dest="n",
-        help="n-th Fibonacci number",
-        type=int,
-        metavar="INT")
+        "-f",
+        "--file",
+        dest="file",
+        help="Python file to be lance'd.",
+        type=Path,
+        action="store",
+        required=True,
+        metavar="./FILE_PATH.py")
     parser.add_argument(
-        "-v",
-        "--verbose",
-        dest="loglevel",
-        help="set loglevel to INFO",
-        action="store_const",
-        const=logging.INFO)
-    parser.add_argument(
-        "-vv",
-        "--very-verbose",
-        dest="loglevel",
-        help="set loglevel to DEBUG",
-        action="store_const",
-        const=logging.DEBUG)
+        "-y",
+        "--yolo",
+        dest="yolo",
+        help="Overwrite original file, lol.",
+        action="store_true")
     return parser.parse_args(args)
 
 
@@ -91,6 +76,38 @@ def setup_logging(loglevel):
     logging.basicConfig(level=loglevel, stream=sys.stdout,
                         format=logformat, datefmt="%Y-%m-%d %H:%M:%S")
 
+def lance(file:Path = "./file.py", yolo:bool=False):
+    """[summary]
+    Takes a file and lances it.
+
+    [description]
+    Turns our code into the most horrendous mess imaginable.
+    Seriously.
+
+    Keyword Arguments:
+        file {Path} -- File to be lanced (default: {"./file.py"})
+        yolo {bool} -- Overwrites original if true (default: {False})
+    """
+    # turn file into path if not already
+    file = Path(file)
+
+    # initiate "fixers"
+    variabel_fixer = VariableFixer()
+    comment_fixer = CommentFixer()
+
+    # first fix comments
+    comment_fixer.fix(file)
+
+    # get the output file
+    fixed_file = comment_fixer.__output__
+
+    # applying variable fixer
+    variabel_fixer.fix(fixed_file)
+
+    # if yolo mode is true, substitute original
+    if yolo:
+        copy_and_delete(fixed_file, file)
+
 
 def main(args):
     """Main entry point allowing external calls
@@ -99,10 +116,11 @@ def main(args):
       args ([str]): command line parameter list
     """
     args = parse_args(args)
-    setup_logging(args.loglevel)
-    _logger.debug("Starting crazy calculations...")
-    print("The {}-th Fibonacci number is {}".format(args.n, fib(args.n)))
-    _logger.info("Script ends here")
+
+    lance(file=args.file, yolo=args.yolo)
+    
+
+
 
 
 def run():
