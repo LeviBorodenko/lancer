@@ -1,18 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-This is a skeleton file that can serve as a starting point for a Python
-console script. To run this script uncomment the following lines in the
-[options.entry_points] section in setup.cfg:
-
-    console_scripts =
-         fibonacci = lancer.skeleton:run
-
-Then run `python setup.py install` which will install the command `fibonacci`
+Then run `python setup.py install` which will install the command `lance`
 inside your current environment.
-Besides console scripts, the header (i.e. until _logger...) of this file can
-also be used as template for Python modules.
-
-Note: This skeleton file can be safely removed if not needed!
 """
 
 import argparse
@@ -76,7 +65,8 @@ def setup_logging(loglevel):
     logging.basicConfig(level=loglevel, stream=sys.stdout,
                         format=logformat, datefmt="%Y-%m-%d %H:%M:%S")
 
-def lance(file:Path = "./file.py", yolo:bool=False):
+
+def lance(file : Path = "./file.py", yolo : bool = False):
     """[summary]
     Takes a file and lances it.
 
@@ -118,9 +108,6 @@ def main(args):
     args = parse_args(args)
 
     lance(file=args.file, yolo=args.yolo)
-    
-
-
 
 
 def run():

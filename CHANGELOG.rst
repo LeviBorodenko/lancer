@@ -2,9 +2,11 @@
 Changelog
 =========
 
-Version 0.1
+Version 0.9.0
 ===========
 
-- Feature A added
-- FIX: nasty bug #1729 fixed
-- add your changes here!
+- Implemented variable substitution (VariableFixer class).
+- Implemented comment substitution (CommentFixer class).
+- Added CLI "lance".
+- Added rudimentary testing for both fixers classes.
+

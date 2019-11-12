@@ -161,13 +161,17 @@ class VariableFixer(object):
 
         # check if we are defining something and if yes, make sure
         # the middle is followed by either a comma, = or closing bracket
-        if "def" in first.line and last.string in ["=", ",", ")"]:
+        if "def" in first.line and last.string in ["=", ",", ")", ":"]:
 
             # also make sure middle is an actual NAME and not "self".
             if middle.type == NAME and middle.string != "self":
 
-                # write into dictionary
-                self._get_new_name(middle.string)
+                # additinally we need to check that it is not an annotation :)
+                # sorry about the chain of if statements. How to avoid them?
+                if first.string not in [":", "->"]:
+
+                    # write into dictionary
+                    self._get_new_name(middle.string)
 
     def _substitute(self, tokens):
 
