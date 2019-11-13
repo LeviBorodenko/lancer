@@ -66,7 +66,7 @@ optional arguments:
 So if you have a python file at `./test.py`, you simply run `lance -f ./test.py`
 
 ## How does it work
-The key tool we use it the `tokenizer` standard module in python. It allows us to tokenize the any python script which then in turn makes substituting comments and variable names fairly simple.
+The key tool we use it the `tokenizer` standard module in python. It allows us to tokenize any python script which then in turn makes substituting comments and variable names fairly simple.
 Check out the source code for more details. 
 
 ## Contribute
