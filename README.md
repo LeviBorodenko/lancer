@@ -1,4 +1,4 @@
-# lancer
+# Lancer
 Ever heard of Black? This is the opposite.
 A tool to turn your clean python code into a hideous mess.
 
