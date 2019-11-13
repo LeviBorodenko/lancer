@@ -3,6 +3,7 @@ from tokenize import NAME, NL, DEDENT, INDENT
 from itertools import tee
 import random
 from lancer.utils import fix_wrapper, window, isbuildin
+import pkg_resources
 
 # import pkg_resources
 
@@ -17,7 +18,7 @@ _logger = logging.getLogger(__name__)
 class VariableFixer(object):
     """[summary]
     Changes all your good variable names into horrible ones.
-    
+
     [description]
     Iterates over file spotting all variable, function and class names,
     substituting them with its own BAD ones.
@@ -45,8 +46,64 @@ class VariableFixer(object):
         # to our generated onces.
         self.dict = {}
 
-        # length of variable names
-        self.NUM_CHAR = 15
+        # length of variable name noise
+        self.NUM_NOISE_CHAR = 5
+
+        # Path to lyric file resource
+        self.SOUNDS_FILE = pkg_resources.resource_filename(
+            __name__, "../resources/sounds.txt")
+
+        # Number of Sounds
+        self.NUM_SOUNDS = sum(1 for line in open(self.SOUNDS_FILE))
+
+    def _get_random_noise(self) -> str:
+        """[summary]
+        Returns a random horrible mess according to self.PATTERNS
+
+        [description]
+        Stuff like: IllIlI11Ι1IIIlI1, 000O00OOO, aaαaaααααaaaαaα etc
+        """
+        # choosing a pattern at random
+        idx = random.randint(1, len(self.PATTERNS))
+
+        pattern = self.PATTERNS[idx]
+
+        # creating noise from pattern
+        noise = ""
+
+        if pattern["initial"] is not None:
+            noise += pattern["initial"]
+
+        # generate noise from list of chars
+        noise += "".join(random.choices(pattern["chars"],
+                                        k=self.NUM_NOISE_CHAR))
+
+        return noise
+
+    def _get_random_animal_sound(self) -> str:
+        """[summary]
+        returns a random animal sound like "bark_bark" etc.
+        [description]
+        We read the animal sounds from /resource/sounds.txt
+        """
+
+        # Open sounds file and grab a random line
+        with open(self.SOUNDS_FILE) as f:
+
+            random_index = random.randint(0, self.NUM_SOUNDS - 1)
+
+            sounds = f.readlines()
+
+            # get random sound and strip whitespaces
+            sound = sounds[random_index].rstrip()
+
+            # repeat sound up to 2 times
+            sound_list = [sound for i in range(random.randint(1, 3))]
+
+            # join them to one string
+            sound = "_".join(sound_list) + "_"
+
+            return sound
 
     def _get_new_name(self, input_name: str):
 
@@ -59,19 +116,11 @@ class VariableFixer(object):
             # Generate new name
             ###
 
-            # choosing a pattern at random
-            idx = random.randint(1, len(self.PATTERNS))
+            sounds = self._get_random_animal_sound()
+            noise = self._get_random_noise()
 
-            pattern = self.PATTERNS[idx]
-
-            # creating name from pattern
-            name = ""
-
-            if pattern["initial"] is not None:
-                name += pattern["initial"]
-
-            # generate name from list of chars
-            name += "".join(random.choices(pattern["chars"], k=self.NUM_CHAR))
+            # combine to generate variable name
+            name = sounds + noise
 
             # save to dict
             self.dict[input_name] = name

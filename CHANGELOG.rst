@@ -10,3 +10,8 @@ Version 0.9.0
 - Added CLI "lance".
 - Added rudimentary testing for both fixers classes.
 
+Version 0.9.1
+===========
+
+- variable names now contain animal sounds
+
