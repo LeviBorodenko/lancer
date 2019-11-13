@@ -13,5 +13,6 @@ Version 0.9.0
 Version 0.9.1
 ===========
 
-- variable names now contain animal sounds
+- variable names now contain animal sounds.
+- README.md is prototyped.
 

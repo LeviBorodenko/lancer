@@ -6,7 +6,7 @@ growl
 buzz
 snarl
 moo
-squeak
+woof
 chirp
 caw
 cah
@@ -17,3 +17,8 @@ hoot
 oink
 meow
 bark
+baa
+cockadoodledo
+gobble
+ribbit
+roar
