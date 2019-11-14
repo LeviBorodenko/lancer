@@ -23,9 +23,10 @@ Version 0.9.2
 - Added some animal sounds.
 - README.md is now drafted
 - Uploading to test-PyPi
+- Renaming package to py-lancer to avoid clash in PyPi
 
 
-Version 0.9.3 (TODO)
+Version 1.0.0 (TODO)
 ===========
 
 - test PyPi is working as expected.

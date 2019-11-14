@@ -1,11 +1,12 @@
 # Lancer
 Ever heard of Black? This is the opposite.
-A tool to turn your clean python code into a hideous mess.
+A tool to turn your clean python code into a hideous (working) mess.
 
 ## Features
 1. Turn all comments into Pitbull lyrics 💃
-2. Turn all your variable names into a mixture of animal sounds and horribly similar looking characters like "bark_bark_0OO0O".
-3. Code still compiles after all these _improvements_! 👷
+2. Turn all your variable names into a mixture of animal sounds and horribly similar looking characters like "bark_bark_0OO0O". 🐶
+3. Add irritating white spaces. 
+4. Code still compiles after all these _improvements_! 👷
 
 
 ## Example
@@ -36,7 +37,7 @@ After:
 def quack_Il1Ι1l(squeak_squeak_IIΙΙlI: int, honk_honk_honk_aaαaα: int) -> int:
 
     # Bada bing, bada boom
-    growl_growl_growl_ααaaα = squeak_squeak_IIΙΙlI + honk_honk_honk_aaαaα
+    growl_growl_growl_ααaaα= squeak_squeak_IIΙΙlI  + honk_honk_honk_aaαaα
 
     # Hey baby, givin' it your all when you're dancin' on me
     return growl_growl_growl_ααaaα
