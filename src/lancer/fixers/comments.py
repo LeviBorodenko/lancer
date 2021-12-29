@@ -2,7 +2,7 @@ import logging
 from tokenize import COMMENT
 from random import randint
 from lancer.utils import fix_wrapper
-import pkg_resources
+from pkg_resources import resource_filename
 
 __author__ = "Levi Borodenko"
 __copyright__ = "Levi Borodenko"
@@ -28,8 +28,7 @@ class CommentFixer(object):
         super(CommentFixer, self).__init__()
 
         # Path to lyric file resource
-        self.LYRIC_FILE = pkg_resources.resource_filename(
-            __name__, "../resources/lyrics.txt")
+        self.LYRIC_FILE = resource_filename(__name__, "../resources/lyrics.txt")
 
         # Load lyrics which replace original comments here
         self.LYRICS = None

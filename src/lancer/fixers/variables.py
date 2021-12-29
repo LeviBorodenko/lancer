@@ -3,7 +3,7 @@ from tokenize import NAME, NL, DEDENT, INDENT
 from itertools import tee
 import random
 from lancer.utils import fix_wrapper, window, isbuildin
-import pkg_resources
+from pkg_resources import resource_filename
 
 # import pkg_resources
 
@@ -50,8 +50,7 @@ class VariableFixer(object):
         self.NUM_NOISE_CHAR = 5
 
         # Path to lyric file resource
-        self.SOUNDS_FILE = pkg_resources.resource_filename(
-            __name__, "../resources/sounds.txt")
+        self.SOUNDS_FILE = resource_filename(__name__, "../resources/sounds.txt")
 
         # Load sounds which "enhance" original variable names here
         self.SOUNDS = None
