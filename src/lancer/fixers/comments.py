@@ -31,8 +31,13 @@ class CommentFixer(object):
         self.LYRIC_FILE = pkg_resources.resource_filename(
             __name__, "../resources/lyrics.txt")
 
+        # Load lyrics which replace original comments here
+        self.LYRICS = None
+        with open(self.LYRIC_FILE, 'r') as f:
+            self.LYRICS = f.readlines()
+
         # Number of lyrics
-        self.NUM_LYRICS = sum(1 for line in open(self.LYRIC_FILE))
+        self.NUM_LYRICS = len(self.LYRICS)
 
         # setting name
         self.__name__ = "CommentFixer"
@@ -43,15 +48,11 @@ class CommentFixer(object):
         Gives one of many insightful Pitbull quotes.
         """
 
-        # Open lyrics file and grab a random line
-        with open(self.LYRIC_FILE) as f:
+        # Grab a random line from our lyrics
+        random_index = randint(0, self.NUM_LYRICS - 1)
 
-            random_index = randint(0, self.NUM_LYRICS - 1)
-
-            lyrics = f.readlines()
-
-            # .rstrip to remove trailing whitespace
-            return "# " + lyrics[random_index].rstrip()
+        # .rstrip to remove trailing whitespace
+        return "# " + self.LYRICS[random_index].rstrip()
 
     @fix_wrapper
     def fix(self, tokens):

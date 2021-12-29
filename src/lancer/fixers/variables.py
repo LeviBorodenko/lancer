@@ -53,8 +53,13 @@ class VariableFixer(object):
         self.SOUNDS_FILE = pkg_resources.resource_filename(
             __name__, "../resources/sounds.txt")
 
+        # Load sounds which "enhance" original variable names here
+        self.SOUNDS = None
+        with open(self.SOUNDS_FILE, 'r') as f:
+            self.SOUNDS = f.readlines()
+
         # Number of Sounds
-        self.NUM_SOUNDS = sum(1 for line in open(self.SOUNDS_FILE))
+        self.NUM_SOUNDS = len(self.SOUNDS)
 
     def _get_random_noise(self) -> str:
         """[summary]
@@ -87,23 +92,19 @@ class VariableFixer(object):
         We read the animal sounds from /resource/sounds.txt
         """
 
-        # Open sounds file and grab a random line
-        with open(self.SOUNDS_FILE) as f:
+        # Grab a random line from our nice sounds
+        random_index = random.randint(0, self.NUM_SOUNDS - 1)
 
-            random_index = random.randint(0, self.NUM_SOUNDS - 1)
+        # get random sound and strip whitespaces
+        sound = self.SOUNDS[random_index].rstrip()
 
-            sounds = f.readlines()
+        # repeat sound up to 2 times
+        sound_list = [sound] * random.randint(1, 3)
 
-            # get random sound and strip whitespaces
-            sound = sounds[random_index].rstrip()
+        # join them to one string
+        sound = "_".join(sound_list) + "_"
 
-            # repeat sound up to 2 times
-            sound_list = [sound for i in range(random.randint(1, 3))]
-
-            # join them to one string
-            sound = "_".join(sound_list) + "_"
-
-            return sound
+        return sound
 
     def _get_new_name(self, input_name: str):
 
