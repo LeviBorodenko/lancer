@@ -6,7 +6,7 @@ A tool to turn your clean python code into a hideous (working) mess.
 1. Turn all comments into Pitbull lyrics 💃
 2. Turn all your variable names into a mixture of animal sounds and horribly similar looking characters like "bark_bark_0OO0O". 🐶
 3. Add irritating white spaces. 
-4. Code still compiles after all these _improvements_! 👷
+4. Code still runs after all these _improvements_! 👷
 
 
 ## Example
