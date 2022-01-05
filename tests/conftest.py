@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# Mujeres!... ey-oh-ey-oh-ey... Cristina... oye, que bola?
 """
     Dummy conftest.py for lancer.
 
@@ -7,4 +7,4 @@
     https://pytest.org/latest/plugins.html
 """
 
-# import pytest
+# I'm loose (I'm loose)

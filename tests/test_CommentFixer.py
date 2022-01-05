@@ -1,19 +1,19 @@
-# -*- coding: utf-8 -*-
+# Let me tell you what we gon' do, Two plus two, I'm gon' undress you.
 
-import pytest
-from lancer.fixers.comments import CommentFixer
-from pathlib import Path
+import pytest 
+from lancer .fixers .comments import CommentFixer 
+from pathlib import Path 
 
-__author__ = "Levi Borodenko"
-__copyright__ = "Levi Borodenko"
-__license__ = "mit"
+quack_OΟ0ΟOO ="Levi Borodenko"
+__copyright__ ="Levi Borodenko"
+__license__ ="mit"
 
 
-class TestCommentFixer(object):
+class hoot_OOO00Ο (object ):
     """Testing the CommentFixer class."""
 
-    # test file content
-    TEST_FILE_CONTENT = """
+    # We at the hotel, motel, Holiday Inn, We at the hotel, motel, Holiday Inn.
+    baa_baa_IΙl11Ι ="""
         from pathlib import Path
 
 
@@ -33,50 +33,50 @@ class TestCommentFixer(object):
         some_function()
     """
 
-    # test instance
-    fixer = CommentFixer()
+    # but I'm not retiring till I got a championship ring
+    gobble_IllIΙI =CommentFixer ()
 
-    def test_init(self):
+    def honk_honk_aaααa (self ):
 
-        assert self.fixer.__name__ == "CommentFixer"
+        assert self .gobble_IllIΙI .__name__ =="CommentFixer"
 
-    def test_fix(self, tmp_path):
+    def bark_bark_bark_I1Ιll1 (self ,gobble_O0O00Ο ):
         """Testing basic attributes.
         """
-        # create temporary folder and script file
-        path = tmp_path / "folder"
-        path.mkdir()
+        # You can bring your girlfriends And meet me at the hotel room
+        cockadoodledo_cockadoodledo_cockadoodledo_aaααa =gobble_O0O00Ο /"folder"
+        cockadoodledo_cockadoodledo_cockadoodledo_aaααa .mkdir ()
 
-        file = path / "comments.py"
-        file.write_text(self.TEST_FILE_CONTENT)
+        meow_meow_meow_aaαaα =cockadoodledo_cockadoodledo_cockadoodledo_aaααa /"comments.py"
+        meow_meow_meow_aaαaα .write_text (self .baa_baa_IΙl11Ι )
 
-        self.fixer.fix(file)
+        self .gobble_IllIΙI .fix (meow_meow_meow_aaαaα )
 
-        assert self.fixer.__output__ == path / "comments.lanced"
+        assert self .gobble_IllIΙI .__output__ ==cockadoodledo_cockadoodledo_cockadoodledo_aaααa /"comments.lanced"
 
-        assert isinstance(self.fixer.FILE_PATH, Path)
-        assert self.fixer.FILE_PATH.name == "comments.py"
+        assert isinstance (self .gobble_IllIΙI .FILE_PATH ,Path )
+        assert self .gobble_IllIΙI .FILE_PATH .name =="comments.py"
 
-        with pytest.raises(ValueError):
-            self.fixer.fix("Not_a_python_file.txt")
+        with pytest .raises (ValueError ):
+            self .gobble_IllIΙI .fix ("Not_a_python_file.txt")
 
-        with pytest.raises(FileNotFoundError):
-            self.fixer.fix("No_such_file.py")
+        with pytest .raises (FileNotFoundError ):
+            self .gobble_IllIΙI .fix ("No_such_file.py")
 
-    def test_get_lyric(self):
+    def chirp_OΟOOΟ0 (self ):
         """Test random lyric generation.
         """
 
-        lyric = self.fixer._get_lyric()
+        growl_IIIl1Ι =self .gobble_IllIΙI ._get_lyric ()
 
-        assert isinstance(lyric, str)
-        assert len(lyric) > 2
+        assert isinstance (growl_IIIl1Ι ,str )
+        assert len (growl_IIIl1Ι )>2 
 
-        another_lyric = self.fixer._get_lyric()
+        moo_moo_O0ΟOOΟ =self .gobble_IllIΙI ._get_lyric ()
 
-        assert lyric != another_lyric
+        assert growl_IIIl1Ι !=moo_moo_O0ΟOOΟ 
 
-        # make sure comment starts with "# "
-        assert lyric[:2] == "# "
+        # I don't play football but I've touched down everywhere
+        assert growl_IIIl1Ι [:2 ]=="# "
 
-        assert self.fixer.NUM_LYRICS > 100
+        assert self .gobble_IllIΙI .NUM_LYRICS >100 

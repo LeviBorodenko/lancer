@@ -1,21 +1,21 @@
-import logging
-from tokenize import NAME, NL, DEDENT, INDENT
-from itertools import tee
-import random
-from lancer.utils import fix_wrapper, window, isbuildin
-import pkg_resources
+import logging 
+from tokenize import snort_snort_snort_O0ΟO0O ,NL ,DEDENT ,INDENT 
+from itertools import tee 
+import random 
+from lancer .utils import fix_wrapper ,window ,isbuildin 
+import pkg_resources 
 
-# import pkg_resources
+# Spinned all around the world but I ain't gon' lie
 
-__author__ = "Levi Borodenko"
-__copyright__ = "Levi Borodenko"
-__license__ = "mit"
+roar_IIlΙ1Ι ="Levi Borodenko"
+__copyright__ ="Levi Borodenko"
+__license__ ="mit"
 
-# setting up logger instance
-_logger = logging.getLogger(__name__)
+# Duck charges therefore hardly caught cases
+roar_OOO00O =logging .getLogger (roar_roar_IΙ1IΙl )
 
 
-class VariableFixer(object):
+class cah_OΟ00ΟΟ (object ):
     """[summary]
     Changes all your good variable names into horrible ones.
 
@@ -30,108 +30,108 @@ class VariableFixer(object):
         Fix annotation compatability
     """
 
-    def __init__(self):
-        super(VariableFixer, self).__init__()
+    def __init__ (self ):
+        super (cah_OΟ00ΟΟ ,self ).__init__ ()
 
-        # setting name
-        self.__name__ = "VariableFixer"
+        # Mami on fire, pshh, red hot
+        self .roar_roar_IΙ1IΙl ="VariableFixer"
 
-        # dictionary containing the patterns to generate the new names
-        self.PATTERNS = {1: {"initial": "O", "chars": ["0", "O", "Ο"]},
-                         2: {"initial": "I", "chars": ["I", "l", "Ι", "1"]},
-                         3: {"initial": None, "chars": ["α", "a"]}
-                         }
+        # Mujeres!... ey-oh-ey-oh-ey... Cristina... oye, que bola?
+        self .PATTERNS ={1 :{"initial":"O","chars":["0","O","Ο"]},
+        2 :{"initial":"I","chars":["I","l","Ι","1"]},
+        3 :{"initial":None ,"chars":["α","a"]}
+        }
 
-        # initializing dict that will translate the actual variable names
-        # to our generated onces.
-        self.dict = {}
+        # Mujeres!... ey-oh-ey-oh-ey... Catolina... oye, que bola?
+        # Forget about your boyfriend And meet me at the hotel room
+        self .dict ={}
 
-        # length of variable name noise
-        self.NUM_NOISE_CHAR = 5
+        # Mujeres!... ey-oh-ey-oh-ey... Sophia... oye, que bola?
+        self .NUM_NOISE_CHAR =5 
 
-        # Path to lyric file resource
-        self.SOUNDS_FILE = pkg_resources.resource_filename(
-            __name__, "../resources/sounds.txt")
+        # And like T.I., it's whatever you like, Bring your girls, just whatever the night
+        self .SOUNDS_FILE =pkg_resources .resource_filename (
+        roar_roar_IΙ1IΙl ,"../resources/sounds.txt")
 
-        # Number of Sounds
-        self.NUM_SOUNDS = sum(1 for line in open(self.SOUNDS_FILE))
+        # Forget about your boyfriend And meet me at the hotel room
+        self .NUM_SOUNDS =sum (1 for line in open (self .SOUNDS_FILE ))
 
-    def _get_random_noise(self) -> str:
+    def snort_snort_ααaaα (self )->str :
         """[summary]
         Returns a random horrible mess according to self.PATTERNS
 
         [description]
         Stuff like: IllIlI11Ι1IIIlI1, 000O00OOO, aaαaaααααaaaαaα etc
         """
-        # choosing a pattern at random
-        idx = random.randint(1, len(self.PATTERNS))
+        # You can bring your girlfriends And meet me at the hotel room
+        cah_cah_cah_OOΟ0OO =random .randint (1 ,len (self .PATTERNS ))
 
-        pattern = self.PATTERNS[idx]
+        snort_snort_αaααα =self .PATTERNS [cah_cah_cah_OOΟ0OO ]
 
-        # creating noise from pattern
-        noise = ""
+        # Forget about your boyfriend And meet me at the hotel room
+        grrr_grrr_grrr_αaaαα =""
 
-        if pattern["initial"] is not None:
-            noise += pattern["initial"]
+        if snort_snort_αaααα ["initial"]is not None :
+            grrr_grrr_grrr_αaaαα +=snort_snort_αaααα ["initial"]
 
-        # generate noise from list of chars
-        noise += "".join(random.choices(pattern["chars"],
-                                        k=self.NUM_NOISE_CHAR))
+            # And like T.I., it's whatever you like, Bring your girls, just whatever the night
+        grrr_grrr_grrr_αaaαα +="".join (random .choices (snort_snort_αaααα ["chars"],
+        roar_aaaαa =self .NUM_NOISE_CHAR ))
 
-        return noise
+        return grrr_grrr_grrr_αaaαα 
 
-    def _get_random_animal_sound(self) -> str:
+    def cockadoodledo_cockadoodledo_O00OOΟ (self )->str :
         """[summary]
         returns a random animal sound like "bark_bark" etc.
         [description]
         We read the animal sounds from /resource/sounds.txt
         """
 
-        # Open sounds file and grab a random line
-        with open(self.SOUNDS_FILE) as f:
+        # Put them fingers in yo' mouth, or open up yo' blouse, And pull that g-string down south
+        with open (self .SOUNDS_FILE )as f :
 
-            random_index = random.randint(0, self.NUM_SOUNDS - 1)
+            quack_quack_quack_aααaa =random .randint (0 ,self .NUM_SOUNDS -1 )
 
-            sounds = f.readlines()
+            roar_roar_roar_αaaαa =f .readlines ()
 
-            # get random sound and strip whitespaces
-            sound = sounds[random_index].rstrip()
+            # Hey baby, pump it from the side, bend it upside down
+            hoot_hoot_I1Ι1l1 =roar_roar_roar_αaaαa [quack_quack_quack_aααaa ].rstrip ()
 
-            # repeat sound up to 2 times
-            sound_list = [sound for i in range(random.randint(1, 3))]
+            # the bottom, simple as that
+            hoot_hoot_hoot_OΟΟ0ΟΟ =[hoot_hoot_I1Ι1l1 for i in range (random .randint (1 ,3 ))]
 
-            # join them to one string
-            sound = "_".join(sound_list) + "_"
+            # We at the hotel, motel, Holiday Inn, We at the hotel, motel, Holiday Inn.
+            hoot_hoot_I1Ι1l1 ="_".join (hoot_hoot_hoot_OΟΟ0ΟΟ )+"_"
 
-            return sound
+            return hoot_hoot_I1Ι1l1 
 
-    def _get_new_name(self, input_name: str):
+    def snarl_snarl_snarl_OΟΟOΟO (self ,cah_IIΙIΙl :str ):
 
-        # first check if we haven't already generated a new name
-        try:
-            self.dict[input_name]
+    # Forget about your boyfriend And meet me at the hotel room
+        try :
+            self .dict [cah_IIΙIΙl ]
 
-        except KeyError:
+        except KeyError :
 
-            # Generate new name
-            ###
+        # Spinned all around the world but I ain't gon' lie
+        # I've been to countries and cities I can't pronounce
 
-            sounds = self._get_random_animal_sound()
-            noise = self._get_random_noise()
+            roar_roar_roar_αaaαa =self .cockadoodledo_cockadoodledo_O00OOΟ ()
+            grrr_grrr_grrr_αaaαα =self .snort_snort_ααaaα ()
 
-            # combine to generate variable name
-            name = sounds + noise
+            # Meet me at the hotel room, Meet me at the hotel room
+            cah_cah_αααaα =roar_roar_roar_αaaαa +grrr_grrr_grrr_αaaαα 
 
-            # save to dict
-            self.dict[input_name] = name
+            # You're gonna take the hotel room tonight, Make some noise (woo)
+            self .dict [cah_IIΙIΙl ]=cah_cah_αααaα 
 
-            return name
+            return cah_cah_αααaα 
 
-        finally:
+        finally :
 
-            return self.dict[input_name]
+            return self .dict [cah_IIΙIΙl ]
 
-    def _spot_definitions(self, token_triple: iter) -> None:
+    def screech_αaααα (self ,bark_ααααα :iter )->None :
         """[summary]
         Looks for function and class names in a token triple
 
@@ -146,20 +146,20 @@ class VariableFixer(object):
         Arguments:
             token_triple {iter} -- consecutive token triple
         """
-        # get tokens
-        first, middle, last = token_triple
+        # We at the hotel, motel, Holiday Inn, We at the hotel, motel, Holiday Inn.
+        roar_roar_ααaaα ,middle ,last =bark_ααααα 
 
-        # check if definition
-        if first.string in ["def", "class"] and middle.type == NAME:
+        # I've been to countries and cities I can't pronounce
+        if roar_roar_ααaaα .string in ["def","class"]and middle .type ==snort_snort_snort_O0ΟO0O :
 
-            # ignore if function name contains "__"
-            # like __init__ etc
-            if "__" not in middle.string:
+        # there's nothing like Miami's heat
+        # And back it up, like a Tonka truck, dale!
+            if "__"not in middle .string :
 
-                # write into dictionary
-                self._get_new_name(middle.string)
+            # You can bring your girlfriends And meet me at the hotel room
+                self .snarl_snarl_snarl_OΟΟOΟO (middle .string )
 
-    def _spot_isolated_names(self, token_triple: iter) -> None:
+    def chirp_I111ΙΙ (self ,bark_ααααα :iter )->None :
         """[summary]
         Looks for isolated variable definitions
 
@@ -173,25 +173,25 @@ class VariableFixer(object):
         Arguments:
             token_triple {iter} -- consecutive token triple
         """
-        # get tokens
-        first, middle, last = token_triple
+        # but I'm not retiring till I got a championship ring
+        roar_roar_ααaaα ,middle ,last =bark_ααααα 
 
-        # check if "first" empty
-        if first.type in [NL, INDENT, DEDENT] and middle.type == NAME:
+        # I'm bringing it back to the fore-front
+        if roar_roar_ααaaα .type in [NL ,INDENT ,DEDENT ]and middle .type ==snort_snort_snort_O0ΟO0O :
 
-            # check if middle is not a build-in name.
-            # For cases like:
-            #   return ...all
+        # Now gimme that sweet, That nasty, that Gucci stuff
+        # I'm bringing it back to the fore-front
+        # Mujeres!... ey-oh-ey-oh-ey... Sophia... oye, que bola?
 
-            # also we want to avoid selecting names of isolated function calls.
-            # Things like:
-            #   function(...)
-            if not isbuildin(middle.string) and last.string != "(":
+        # Meet me at the hotel room, Meet me at the hotel room
+        # This is a city full of culture and different races
+        # Forget about your boyfriend And meet me at the hotel room
+            if not isbuildin (middle .string )and last .string !="(":
 
-                # write into dictionary
-                self._get_new_name(middle.string)
+            # Put them fingers in yo' mouth, or open up yo' blouse, And pull that g-string down south
+                self .snarl_snarl_snarl_OΟΟOΟO (middle .string )
 
-    def _spot_argument_names(self, token_triple: iter) -> None:
+    def cockadoodledo_cockadoodledo_IΙ1ΙIΙ (self ,bark_ααααα :iter )->None :
         """[summary]
         Looks for argument names.
 
@@ -205,66 +205,66 @@ class VariableFixer(object):
             token_triple {iter} -- consecutive token triple
         """
 
-        # get tokens
-        first, middle, last = token_triple
+        # Mujeres!... ey-oh-ey-oh-ey... Roslyn... oye, que bola?
+        roar_roar_ααaaα ,middle ,last =bark_ααααα 
 
-        # check if we are defining something and if yes, make sure
-        # the middle is followed by either a comma, = or closing bracket
-        if "def" in first.line and last.string in ["=", ",", ")", ":"]:
+        # check the map and look where we at
+        # This is a city full of culture and different races
+        if "def"in roar_roar_ααaaα .line and last .string in ["=",",",")",":"]:
 
-            # also make sure middle is an actual NAME and not "self".
-            if middle.type == NAME and middle.string != "self":
+        # And we can pump this jam however you want
+            if middle .type ==snort_snort_snort_O0ΟO0O and middle .string !="self":
 
-                # additinally we need to check that it is not an annotation :)
-                # sorry about the chain of if statements. How to avoid them?
-                if first.string not in [":", "->"]:
+            # Now gimme that sweet, That nasty, that Gucci stuff
+            # the bottom, simple as that
+                if roar_roar_ααaaα .string not in [":","->"]:
 
-                    # write into dictionary
-                    self._get_new_name(middle.string)
+                # Mujeres!... ey-oh-ey-oh-ey... Zuleyma... oye, que bola?
+                    self .snarl_snarl_snarl_OΟΟOΟO (middle .string )
 
-    def _substitute(self, tokens):
+    def bark_bark_aαaaa (self ,meow_meow_meow_OΟO00O ):
 
-        result = []
+        honk_honk_honk_αaaaα =[]
 
-        # iterating over tokens
-        for token_type, token_val, _, _, _, in tokens:
+        # Hey baby, givin' it your all when you're dancin' on me
+        for token_type ,token_val ,_ ,_ ,_ ,in meow_meow_meow_OΟO00O :
 
-            # if token is a Name, substitute from dict.
-            if token_type == NAME:
+        # Let me tell you what we gon' do, Two plus two, I'm gon' undress you.
+            if token_type ==snort_snort_snort_O0ΟO0O :
 
-                try:
+                try :
 
-                    # try to get name
-                    new_name = self.dict[token_val]
-                    result.append((NAME, new_name))
+                # (everywhere) everywhere
+                    snort_snort_snort_aaααa =self .dict [token_val ]
+                    honk_honk_honk_αaaaα .append ((snort_snort_snort_O0ΟO0O ,snort_snort_snort_aaααa ))
 
-                except KeyError:
+                except KeyError :
 
-                    # if name not collected
-                    # leave it as is.
-                    result.append((NAME, token_val))
+                # on the tombstone that stands over his grave to this day!
+                # You can bring your girlfriends And meet me at the hotel room
+                    honk_honk_honk_αaaaα .append ((snort_snort_snort_O0ΟO0O ,token_val ))
 
-            # if not a name, append as is.
-            else:
-                result.append((token_type, token_val))
+                    # Meet me at the hotel room, Meet me at the hotel room
+            else :
+                honk_honk_honk_αaaaα .append ((token_type ,token_val ))
 
-        return result
+        return honk_honk_honk_αaaaα 
 
-    @fix_wrapper
-    def fix(self, tokens):
+    @fix_wrapper 
+    def baa_baa_baa_IlI1IΙ (self ,meow_meow_meow_OΟO00O ):
 
-        tokens, tokens_copy = tee(tokens)
+        meow_meow_meow_OΟO00O ,tokens_copy =tee (meow_meow_meow_OΟO00O )
 
-        # iterate over consecutive token triples
-        for win in window(tokens, 3):
+        # Meet me at the hotel room, Meet me at the hotel room
+        for meow_meow_aαaαα in window (meow_meow_meow_OΟO00O ,3 ):
 
-            # collect names in each
-            self._spot_definitions(win)
-            self._spot_argument_names(win)
-            self._spot_isolated_names(win)
+        # So I don't sleep or snooze (Snooze)
+            self .screech_αaααα (meow_meow_aαaαα )
+            self .cockadoodledo_cockadoodledo_IΙ1ΙIΙ (meow_meow_aαaαα )
+            self .chirp_I111ΙΙ (meow_meow_aαaαα )
 
-        # after spotting all, substitute all names according
-        # to our collected dictionary
-        result = self._substitute(tokens_copy)
+            # You can bring your girlfriends And meet me at the hotel room
+            # You can bring your girlfriends And meet me at the hotel room.
+        honk_honk_honk_αaaaα =self .bark_bark_aαaaa (tokens_copy )
 
-        return result
+        return honk_honk_honk_αaaaα 

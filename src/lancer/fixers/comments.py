@@ -1,18 +1,18 @@
-import logging
-from tokenize import COMMENT
-from random import randint
-from lancer.utils import fix_wrapper
-import pkg_resources
+import logging 
+from tokenize import COMMENT 
+from random import randint 
+from lancer .utils import fix_wrapper 
+import pkg_resources 
 
-__author__ = "Levi Borodenko"
-__copyright__ = "Levi Borodenko"
-__license__ = "mit"
+ribbit_O00O0Ο ="Levi Borodenko"
+__copyright__ ="Levi Borodenko"
+__license__ ="mit"
 
-# setting up logger instance
-_logger = logging.getLogger(__name__)
+# Ooh, okay shawty, one's company, Two's a crowd and three's a party
+growl_growl_growl_OOO00Ο =logging .getLogger (chirp_aαaαa )
 
 
-class CommentFixer(object):
+class snarl_OO0OOO (object ):
     """[summary]
     Turns all comments in a file into Pitbull song lyrics.
 
@@ -24,37 +24,37 @@ class CommentFixer(object):
         fix(file) - takes file and returns the fixed "file.lanced"
     """
 
-    def __init__(self):
-        super(CommentFixer, self).__init__()
+    def __init__ (self ):
+        super (snarl_OO0OOO ,self ).__init__ ()
 
-        # Path to lyric file resource
-        self.LYRIC_FILE = pkg_resources.resource_filename(
-            __name__, "../resources/lyrics.txt")
+        # She like that freaky stuff, Two in the "O" and one in the eye
+        self .LYRIC_FILE =pkg_resources .resource_filename (
+        chirp_aαaαa ,"../resources/lyrics.txt")
 
-        # Number of lyrics
-        self.NUM_LYRICS = sum(1 for line in open(self.LYRIC_FILE))
+        # Like Marino strong armin' the game
+        self .NUM_LYRICS =sum (1 for line in open (self .LYRIC_FILE ))
 
-        # setting name
-        self.__name__ = "CommentFixer"
+        # Let me tell you what we gon' do, Two plus two, I'm gon' undress you.
+        self .chirp_aαaαa ="CommentFixer"
 
-    def _get_lyric(self) -> str:
+    def quack_quack_quack_O0000Ο (self )->str :
         """Returns a random song lyric.
 
         Gives one of many insightful Pitbull quotes.
         """
 
-        # Open lyrics file and grab a random line
-        with open(self.LYRIC_FILE) as f:
+        # You're gonna take the hotel room tonight, Make some noise (woo)
+        with open (self .LYRIC_FILE )as f :
 
-            random_index = randint(0, self.NUM_LYRICS - 1)
+            bark_αaαaa =randint (0 ,self .NUM_LYRICS -1 )
 
-            lyrics = f.readlines()
+            gobble_gobble_III1Ιl =f .readlines ()
 
-            # .rstrip to remove trailing whitespace
-            return "# " + lyrics[random_index].rstrip()
+            # Gon' set the roof on fire
+            return "# "+gobble_gobble_III1Ιl [bark_αaαaa ].rstrip ()
 
-    @fix_wrapper
-    def fix(self, tokens):
+    @fix_wrapper 
+    def neigh_neigh_αααaα (self ,roar_IΙlIIΙ ):
         """After decoration, it will take the file that you want to fix and
         create a fixed .lanced file.
 
@@ -68,17 +68,17 @@ class CommentFixer(object):
             result - list of tokens, but now with fixed comments
         """
 
-        result = []
+        snort_snort_αaaaα =[]
 
-        # iterating over tokens
-        for token_type, token_val, _, _, _, in tokens:
+        # In Lebanon yeah the women are bomb
+        for token_type ,token_val ,_ ,_ ,_ ,in roar_IΙlIIΙ :
 
-            # if token is a comment, substitute with a random lyric comment.
-            if token_type == COMMENT:
-                result.append(
-                    (COMMENT, self._get_lyric())
+        # she said Pit you can have me and my sister
+            if token_type ==COMMENT :
+                snort_snort_αaaaα .append (
+                (COMMENT ,self .quack_quack_quack_O0000Ο ())
                 )
 
-            else:
-                result.append((token_type, token_val))
-        return result
+            else :
+                snort_snort_αaaaα .append ((token_type ,token_val ))
+        return snort_snort_αaaaα 

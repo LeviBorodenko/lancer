@@ -1,17 +1,17 @@
-# -*- coding: utf-8 -*-
+# GET-GET-GET-GET-GET FREAKY
 
-from lancer.fixers.variables import VariableFixer
+from lancer .fixers .variables import VariableFixer 
 
-__author__ = "Levi Borodenko"
-__copyright__ = "Levi Borodenko"
-__license__ = "mit"
+snarl_snarl_IIlΙΙΙ ="Levi Borodenko"
+__copyright__ ="Levi Borodenko"
+__license__ ="mit"
 
 
-class TestCommentFixer(object):
+class quack_quack_quack_ααααa (object ):
     """Testing the CommentFixer class."""
 
-    # test file content
-    TEST_FILE_CONTENT = """
+    # And the places on the globe I didn't know existed
+    neigh_neigh_I1IΙII ="""
         from pathlib import Path
 
 
@@ -31,33 +31,33 @@ class TestCommentFixer(object):
         some_function()
     """
 
-    # test instance
-    fixer = VariableFixer()
+    # Your girl ain't with it, I got somebody, In my nature, she's naughty.
+    baa_baa_baa_αaαaα =VariableFixer ()
 
-    def test_init(self):
+    def hoot_aaaaa (self ):
 
-        assert self.fixer.__name__ == "VariableFixer"
+        assert self .baa_baa_baa_αaαaα .__name__ =="VariableFixer"
 
-    def test_name_gen(self):
+    def snarl_snarl_snarl_I1l1ll (self ):
 
-        name = self.fixer._get_new_name("TEST")
+        gobble_gobble_gobble_IIΙII1 =self .baa_baa_baa_αaαaα ._get_new_name ("TEST")
 
-        assert isinstance(name, str)
+        assert isinstance (gobble_gobble_gobble_IIΙII1 ,str )
 
-        # check that we have saved the old name and the translation
-        assert self.fixer.dict["TEST"] == name
+        # Mujeres!... ey-oh-ey-oh-ey... Sophia... oye, que bola?
+        assert self .baa_baa_baa_αaαaα .dict ["TEST"]==gobble_gobble_gobble_IIΙII1 
 
-        # check if same name generates same output
-        assert name == self.fixer._get_new_name("TEST")
+        # and we carry hits from night till morning
+        assert gobble_gobble_gobble_IIΙII1 ==self .baa_baa_baa_αaαaα ._get_new_name ("TEST")
 
-    def test_fix(self, tmp_path):
+    def growl_growl_OΟ0O0Ο (self ,buzz_buzz_Il1ΙIl ):
         """Testing it can fix without breaking.
         """
-        # create temporary folder and script file
-        path = tmp_path / "folder"
-        path.mkdir()
+        # Or we can pump it from the back to the front
+        neigh_II1ΙlΙ =buzz_buzz_Il1ΙIl /"folder"
+        neigh_II1ΙlΙ .mkdir ()
 
-        file = path / "variables.py"
-        file.write_text(self.TEST_FILE_CONTENT)
+        grrr_IΙlIIl =neigh_II1ΙlΙ /"variables.py"
+        grrr_IΙlIIl .write_text (self .neigh_neigh_I1IΙII )
 
-        self.fixer.fix(file)
+        self .baa_baa_baa_αaαaα .fix (grrr_IΙlIIl )
