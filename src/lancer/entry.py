@@ -47,6 +47,12 @@ def parse_args(args):
         required=True,
         metavar="./FILE_PATH.py")
     parser.add_argument(
+        "-s",
+        "--sfw",
+        dest="sfw",
+        help="Generate comments that are safe for work.",
+        action="store_true")
+    parser.add_argument(
         "-y",
         "--yolo",
         dest="yolo",
@@ -66,7 +72,7 @@ def setup_logging(loglevel):
                         format=logformat, datefmt="%Y-%m-%d %H:%M:%S")
 
 
-def lance(file : Path = "./file.py", yolo : bool = False):
+def lance(file: Path = "./file.py", sfw: bool = False, yolo: bool = False):
     """[summary]
     Takes a file and lances it.
 
@@ -76,14 +82,16 @@ def lance(file : Path = "./file.py", yolo : bool = False):
 
     Keyword Arguments:
         file {Path} -- File to be lanced (default: {"./file.py"})
+        sfw {bool} -- Generate comments that are safe for work if true (default: {False})
         yolo {bool} -- Overwrites original if true (default: {False})
     """
     # turn file into path if not already
     file = Path(file)
 
     # initiate "fixers"
-    variabel_fixer = VariableFixer()
+    variable_fixer = VariableFixer()
     comment_fixer = CommentFixer()
+    comment_fixer.sfw = sfw
 
     # first fix comments
     comment_fixer.fix(file)
@@ -92,7 +100,7 @@ def lance(file : Path = "./file.py", yolo : bool = False):
     fixed_file = comment_fixer.__output__
 
     # applying variable fixer
-    variabel_fixer.fix(fixed_file)
+    variable_fixer.fix(fixed_file)
 
     # if yolo mode is true, substitute original
     if yolo:
@@ -107,7 +115,7 @@ def main(args):
     """
     args = parse_args(args)
 
-    lance(file=args.file, yolo=args.yolo)
+    lance(file=args.file, sfw=args.sfw, yolo=args.yolo)
 
 
 def run():
