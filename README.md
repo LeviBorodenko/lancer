@@ -3,7 +3,7 @@ Ever heard of [Black](https://github.com/psf/black)? This is the opposite.
 A tool to turn your clean python code into a hideous (working) mess.
 
 ## Features
-1. Turn all comments into Pitbull lyrics 💃
+1. Turn all comments into Pitbull lyrics 💃 (or optionally, something safe for work)
 2. Turn all your variable names into a mixture of animal sounds and horribly similar looking characters like "bark_bark_0OO0O". 🐶
 3. Add irritating white spaces. 
 4. Code still runs after all these _improvements_! 👷
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 Simply run `pip install py-lancer` and then use the `lance` command line tool.
 
 ```
-usage: lance [-h] [--version] -f ./FILE_PATH.py [-y]
+usage: lance [-h] [--version] -f ./FILE_PATH.py [-s][-y]
 
 Ever heard of Black? This is the opposite.
 
@@ -61,6 +61,7 @@ optional arguments:
   --version             show program's version number and exit
   -f ./FILE_PATH.py, --file ./FILE_PATH.py
                         Python file to be lance'd.
+  -s, --sfw             Generate comments that are safe for work.
   -y, --yolo            Overwrite original file, lol.
 ```
 
