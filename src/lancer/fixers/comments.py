@@ -27,9 +27,15 @@ class CommentFixer(object):
     def __init__(self):
         super(CommentFixer, self).__init__()
 
-        # Path to lyric file resource
+        # Path to lyric file resources
         self.LYRIC_FILE = pkg_resources.resource_filename(
             __name__, "../resources/lyrics.txt")
+
+        self.SFW_LYRIC_FILE = pkg_resources.resource_filename(
+            __name__, "../resources/sfw_lyrics.txt")
+
+        # Generate safe for work content (False by default)
+        self.sfw = False
 
         # Number of lyrics
         self.NUM_LYRICS = sum(1 for line in open(self.LYRIC_FILE))
@@ -40,11 +46,12 @@ class CommentFixer(object):
     def _get_lyric(self) -> str:
         """Returns a random song lyric.
 
-        Gives one of many insightful Pitbull quotes.
+        By default, gives one of many insightful Pitbull quotes.
+        If self.sfw is True, return lyrics that are safe for work.
         """
-
+        lyric_file = self.SFW_LYRIC_FILE if self.sfw else self.LYRIC_FILE
         # Open lyrics file and grab a random line
-        with open(self.LYRIC_FILE) as f:
+        with open(lyric_file) as f:
 
             random_index = randint(0, self.NUM_LYRICS - 1)
 

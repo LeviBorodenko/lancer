@@ -80,3 +80,21 @@ class TestCommentFixer(object):
         assert lyric[:2] == "# "
 
         assert self.fixer.NUM_LYRICS > 100
+
+    def test_get_sfw_lyric(self):
+        """Test random sfw lyric generation.
+        """
+        self.fixer.sfw = True
+        lyric = self.fixer._get_lyric()
+
+        assert isinstance(lyric, str)
+        assert len(lyric) > 2
+
+        another_lyric = self.fixer._get_lyric()
+
+        assert lyric != another_lyric
+
+        # make sure comment starts with "# "
+        assert lyric[:2] == "# "
+
+        assert self.fixer.NUM_LYRICS > 100
