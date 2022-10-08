@@ -1,8 +1,8 @@
 import logging
-from tokenize import NAME, NL, NEWLINE, DEDENT, INDENT
+from tokenize import NAME
 from itertools import tee
 import random
-from lancer.utils import fix_wrapper, window, isbuildin
+from lancer.utils import fix_wrapper, window, isbuildin, isemptytype
 import pkg_resources
 
 # import pkg_resources
@@ -180,7 +180,7 @@ class VariableFixer(object):
             import pdb; pdb.set_trace()
 
         # check if "first" empty
-        if first.type in [NL, NEWLINE, INDENT, DEDENT] and middle.type == NAME:
+        if isemptytype(first.type) and middle.type == NAME:
             # check if middle is not a build-in name.
             # For cases like:
             #   return ...all

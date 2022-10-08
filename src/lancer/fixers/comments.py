@@ -2,7 +2,7 @@ import logging
 from tokenize import COMMENT, NAME, NEWLINE, OP
 from typing import List, Sequence, Tuple
 from random import randint
-from lancer.utils import fix_wrapper, window
+from lancer.utils import fix_wrapper, isemptytype, window
 import pkg_resources
 
 __author__ = "Levi Borodenko"
@@ -127,7 +127,7 @@ class CommentFixer(object):
         token_iter = iter(tokens)
         for first, middle, last in window(token_iter, 3):
             if (
-                first[0] == NEWLINE and
+                isemptytype(first[0]) and
                 middle[0] == NAME and
                 last[0] == OP
                 and last[1] == "="
