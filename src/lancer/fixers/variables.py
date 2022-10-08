@@ -176,9 +176,6 @@ class VariableFixer(object):
         # get tokens
         first, middle, last = token_triple
 
-        if middle.string == "ret_val":
-            import pdb; pdb.set_trace()
-
         # check if "first" empty
         if isemptytype(first.type) and middle.type == NAME:
             # check if middle is not a build-in name.

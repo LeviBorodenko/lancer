@@ -68,6 +68,19 @@ class CommentFixer(object):
             # .rstrip to remove trailing whitespace
             return "# " + lyrics[random_index].rstrip()
 
+    @staticmethod
+    def _is_comment_shebang_line(comment: str) -> bool:
+        """
+        Check if a comment is a shebang line.
+
+        Arguments:
+            comment -- the comment to check
+
+        Returns:
+            result - bool indicating if comment is a shebang
+        """
+        return comment.startswith("#!")
+
     def _substitute_comments_for_lyrics(
         self, tokens: Sequence[LancerTokenType]
     ) -> List[LancerTokenType]:
@@ -84,7 +97,10 @@ class CommentFixer(object):
         out_tokens: List[LancerTokenType] = []
 
         for token_type, token_val in tokens:
-            if token_type == COMMENT:
+            if (
+                token_type == COMMENT and
+                not self._is_comment_shebang_line(token_val)
+            ):
                 out_tokens.append((COMMENT, self._get_lyric()))
             else:
                 out_tokens.append((token_type, token_val))
