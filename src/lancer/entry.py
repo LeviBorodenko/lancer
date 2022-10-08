@@ -93,15 +93,6 @@ def lance(file: Path = "./file.py", sfw: bool = False, yolo: bool = False):
     comment_fixer = CommentFixer()
     comment_fixer.sfw = sfw
 
-    # # first fix comments
-    # comment_fixer.fix(file)
-
-    # # get the output file
-    # fixed_file = comment_fixer.__output__
-
-    # # applying variable fixer
-    # variable_fixer.fix(fixed_file)
-
     # First fix variables. This must be done before fixing comments as the
     # comment fixer adds comments referencing variable names.
     variable_fixer.fix(file)
