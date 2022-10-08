@@ -1,5 +1,5 @@
 import logging
-from tokenize import NAME, NL, DEDENT, INDENT
+from tokenize import NAME, NL, NEWLINE, DEDENT, INDENT
 from itertools import tee
 import random
 from lancer.utils import fix_wrapper, window, isbuildin
@@ -176,9 +176,11 @@ class VariableFixer(object):
         # get tokens
         first, middle, last = token_triple
 
-        # check if "first" empty
-        if first.type in [NL, INDENT, DEDENT] and middle.type == NAME:
+        if middle.string == "ret_val":
+            import pdb; pdb.set_trace()
 
+        # check if "first" empty
+        if first.type in [NL, NEWLINE, INDENT, DEDENT] and middle.type == NAME:
             # check if middle is not a build-in name.
             # For cases like:
             #   return ...all
@@ -187,7 +189,6 @@ class VariableFixer(object):
             # Things like:
             #   function(...)
             if not isbuildin(middle.string) and last.string != "(":
-
                 # write into dictionary
                 self._get_new_name(middle.string)
 
