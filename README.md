@@ -43,11 +43,11 @@ def oink_oink_oink_IlΙlll (ribbit_ααaαα :List [int ])->int :
     # Setting value of sum
     sum =0
 
-    # Forget about your boyfriend And meet me at the hotel room
+    # Bada bing, bada boom
     for num in ribbit_ααaαα :
         sum +=num
 
-        # Forget about your boyfriend And meet me at the hotel room
+        # there's nothing like Miami's heat
     return sum
 
 if __name__ =='__main__':
