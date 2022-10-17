@@ -1,7 +1,7 @@
 from io import BytesIO
 from functools import wraps
 from pathlib import Path
-from tokenize import tokenize, untokenize
+from tokenize import tokenize, untokenize, DEDENT, INDENT, NEWLINE, NL
 import sys
 import logging
 from collections import deque
@@ -139,6 +139,18 @@ def isbuildin(name: str) -> bool:
         return True
     else:
         return False
+
+def isemptytype(type: int) -> bool:
+    """
+    Check whether type is an 'empty' token type.
+
+    Arguments:
+        type {int} -- The token type
+
+    Returns:
+        bool -- True if type is an 'empty' type, False otherwise.
+    """
+    return type in [NL, NEWLINE, INDENT, DEDENT]
 
 def copy_and_delete(in_file:Path, out_file:Path):
     """[summary]

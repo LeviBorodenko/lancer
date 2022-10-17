@@ -1,12 +1,20 @@
 import logging
-from tokenize import COMMENT
+from tokenize import COMMENT, NAME, NEWLINE, OP
+from typing import List, Sequence, Tuple
 from random import randint
-from lancer.utils import fix_wrapper
+from lancer.utils import fix_wrapper, isemptytype, window
 import pkg_resources
 
 __author__ = "Levi Borodenko"
 __copyright__ = "Levi Borodenko"
 __license__ = "mit"
+
+
+# Tuple of (<token type>, (<token value>)
+# These tokens are returned by the fixer, and are suitable for being passed to
+# untokenize() to convert back to source code.
+LancerTokenType = Tuple[int, str]
+
 
 # setting up logger instance
 _logger = logging.getLogger(__name__)
@@ -60,6 +68,97 @@ class CommentFixer(object):
             # .rstrip to remove trailing whitespace
             return "# " + lyrics[random_index].rstrip()
 
+    @staticmethod
+    def _is_comment_shebang_line(comment: str) -> bool:
+        """
+        Check if a comment is a shebang line.
+
+        Arguments:
+            comment -- the comment to check
+
+        Returns:
+            result - bool indicating if comment is a shebang
+        """
+        return comment.startswith("#!")
+
+    def _substitute_comments_for_lyrics(
+        self, tokens: Sequence[LancerTokenType]
+    ) -> List[LancerTokenType]:
+        """
+        Substitute any comment tokens in the sequence tokens with random
+        lyrics.
+    
+        Arguments:
+            tokens  -- the list of tokens to substitute comments from.
+        
+        Return:
+            out_tokens  -- the new list of tokens after substitution.
+        """
+        out_tokens: List[LancerTokenType] = []
+
+        for token_type, token_val in tokens:
+            if (
+                token_type == COMMENT and
+                not self._is_comment_shebang_line(token_val)
+            ):
+                out_tokens.append((COMMENT, self._get_lyric()))
+            else:
+                out_tokens.append((token_type, token_val))
+
+        return out_tokens
+
+    def _add_pointless_variable_init_comments(
+        self, tokens: Sequence[LancerTokenType]
+    ) -> List[LancerTokenType]:
+        """
+        Add totally useless comments describing when variables are initialized.
+        E.g.    my_val = 3
+            ->
+                # Setting value of my_val
+                my_val = 3
+    
+        Arguments:
+            tokens  -- the current list of tokens for the source code.
+        
+        Return:
+            out_tokens  -- the new list of tokens after adding pointless
+                           comments.
+        """
+        # Identify initialized variables by looking for the following
+        # pattern:
+        #     first      NEWLINE        '\n'
+        #     middle     NAME           'my_var'
+        #     last       OP             '='
+        #
+        # Obviously this doesn't catch all initialized variables, but it will
+        # catch a decent number while keeping things simple.
+        out_tokens: List[LancerTokenType] = []
+
+        # Loop over token windows of size 3, inserting a pointless comment
+        # if the above pattern is spotted, and adding the middle token to the
+        # output list. Note that this means the first & last tokens are added
+        # seperately.
+        out_tokens.append(tokens[0])
+
+        token_iter = iter(tokens)
+        for first, middle, last in window(token_iter, 3):
+            if (
+                isemptytype(first[0]) and
+                middle[0] == NAME and
+                last[0] == OP
+                and last[1] == "="
+            ):
+                out_tokens.append(
+                    (COMMENT, "# Setting value of {}".format(middle[1]))
+                )
+                out_tokens.append((NEWLINE, "\n"))
+
+            out_tokens.append(middle)
+
+        out_tokens.append(tokens[-1])
+
+        return out_tokens
+
     @fix_wrapper
     def fix(self, tokens):
         """After decoration, it will take the file that you want to fix and
@@ -72,20 +171,14 @@ class CommentFixer(object):
             tokens -- the list of tokens from the file
 
         Returns:
-            result - list of tokens, but now with fixed comments
+            fixed_tokens - list of tokens, but now with fixed comments
         """
 
-        result = []
+        # Strip off the unneeded token elements.
+        stripped_tokens = [(token[0], token[1]) for token in tokens]
 
-        # iterating over tokens
-        for token_type, token_val, _, _, _, in tokens:
+        fixed_tokens = self._substitute_comments_for_lyrics(stripped_tokens)
 
-            # if token is a comment, substitute with a random lyric comment.
-            if token_type == COMMENT:
-                result.append(
-                    (COMMENT, self._get_lyric())
-                )
+        fixed_tokens = self._add_pointless_variable_init_comments(fixed_tokens)
 
-            else:
-                result.append((token_type, token_val))
-        return result
+        return fixed_tokens
