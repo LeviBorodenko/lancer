@@ -1,5 +1,5 @@
 # Lancer
-Ever heard of [Black](https://github.com/psf/black)? This is the opposite.
+Ever heard of [Black](https://github.com/psf/black)? This is similar.
 A tool to turn your clean python code into a hideous (working) mess.
 
 ## Features
